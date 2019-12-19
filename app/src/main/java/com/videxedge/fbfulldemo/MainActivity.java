@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     String name, phone, email, password, uid;
     User userdb;
-    Boolean stayConnect, registered;
+    Boolean stayConnect, registered, firstrun;
 
 
     @Override
@@ -58,8 +58,18 @@ public class MainActivity extends AppCompatActivity {
         stayConnect=false;
         registered=true;
 
-        regoption();
-
+        SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
+        firstrun=settings.getBoolean("firstRun",false);
+        Toast.makeText(this, ""+firstrun, Toast.LENGTH_SHORT).show();
+        if (firstrun) {
+            tVtitle.setText("Register");
+            eTname.setVisibility(View.VISIBLE);
+            eTphone.setVisibility(View.VISIBLE);
+            btn.setText("Register");
+            registered=false;
+            logoption();
+        }
+        else regoption();
     }
 
     /**
@@ -99,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 eTphone.setVisibility(View.VISIBLE);
                 btn.setText("Register");
                 registered=false;
-//                logoption();
+                logoption();
             }
         };
         ss.setSpan(span, 24, 38, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         tVregister.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-/*    private void logoption() {
+    private void logoption() {
         SpannableString ss = new SpannableString("Already have an account?  Login here!");
         ClickableSpan span = new ClickableSpan() {
             @Override
@@ -117,12 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 eTphone.setVisibility(View.INVISIBLE);
                 btn.setText("Login");
                 registered=true;
+                regoption();
             }
         };
         ss.setSpan(span, 26, 37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tVregister.setText(ss);
         tVregister.setMovementMethod(LinkMovementMethod.getInstance());
-    }*/
+    }
 
     /**
      * Logging in or Registering to the application
@@ -132,10 +143,9 @@ public class MainActivity extends AppCompatActivity {
      * <p>
      */
     public void logorreg(View view) {
+        email=eTemail.getText().toString();
+        password=eTpass.getText().toString();
         if (registered) {
-            email=eTemail.getText().toString();
-            password=eTpass.getText().toString();
-
             final ProgressDialog pd=ProgressDialog.show(this,"Login","Connecting...",true);
             refAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -160,8 +170,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             name=eTname.getText().toString();
             phone=eTphone.getText().toString();
-            email=eTemail.getText().toString();
-            password=eTpass.getText().toString();
 
             final ProgressDialog pd=ProgressDialog.show(this,"Register","Registering...",true);
             refAuth.createUserWithEmailAndPassword(email, password)
@@ -173,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
                                 SharedPreferences.Editor editor=settings.edit();
                                 editor.putBoolean("stayConnect",cBstayconnect.isChecked());
+                                editor.putBoolean("firstRun",false);
                                 editor.commit();
                                 Log.d("MainActivity", "createUserWithEmail:success");
                                 FirebaseUser user = refAuth.getCurrentUser();
@@ -192,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-
         }
     }
 }
