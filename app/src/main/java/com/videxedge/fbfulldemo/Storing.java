@@ -123,7 +123,6 @@ public class Storing extends AppCompatActivity {
         });
     }
 
-
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -136,8 +135,8 @@ public class Storing extends AppCompatActivity {
             startActivity(si);
         }
         if (id==R.id.menuDB) {
-//            Intent si = new Intent(Loginok.this,Database.class);
-//            startActivity(si);
+            Intent si = new Intent(Storing.this,Dbact.class);
+            startActivity(si);
         }
         if (id==R.id.menuStore) {
             Intent si = new Intent(Storing.this,Storing.class);

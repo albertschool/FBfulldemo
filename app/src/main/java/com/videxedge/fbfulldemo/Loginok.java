@@ -96,8 +96,8 @@ public class Loginok extends AppCompatActivity {
             startActivity(si);
         }
         if (id==R.id.menuDB) {
-//            Intent si = new Intent(Loginok.this,Database.class);
-//            startActivity(si);
+            Intent si = new Intent(Loginok.this,Dbact.class);
+            startActivity(si);
         }
         if (id==R.id.menuStore) {
             Intent si = new Intent(Loginok.this,Storing.class);
