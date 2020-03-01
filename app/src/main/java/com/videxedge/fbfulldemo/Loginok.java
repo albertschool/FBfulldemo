@@ -1,5 +1,6 @@
 package com.videxedge.fbfulldemo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,15 +13,19 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.videxedge.fbfulldemo.FBref.refAuth;
+import static com.videxedge.fbfulldemo.FBref.refUsers;
 
 public class Loginok extends AppCompatActivity {
 
     String name, email, uid;
     TextView tVnameview, tVemailview, tVuidview;
     CheckBox cBconnectview;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +42,12 @@ public class Loginok extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser user = refAuth.getCurrentUser();
-//        name = user.getDisplayName();
-//        tVnameview.setText(name);
+        uid = user.getUid();
+        Query query = refUsers
+                .orderByChild("uid")
+                .equalTo(uid)
+                .limitToFirst(1);
+        query.addListenerForSingleValueEvent(ValueEventListener);
         email = user.getEmail();
         tVemailview.setText(email);
         uid = user.getUid();
@@ -47,6 +56,21 @@ public class Loginok extends AppCompatActivity {
         Boolean isChecked=settings.getBoolean("stayConnect",false);
         cBconnectview.setChecked(isChecked);
     }
+
+    com.google.firebase.database.ValueEventListener ValueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dS) {
+            if (dS.exists()) {
+                for(DataSnapshot data : dS.getChildren()) {
+                    User user = data.getValue(User.class);
+                    tVnameview.setText(user.getName());
+                }
+            }
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    };
 
     public void update(View view) {
         FirebaseUser user = refAuth.getCurrentUser();

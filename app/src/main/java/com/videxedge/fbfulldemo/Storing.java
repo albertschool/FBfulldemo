@@ -145,5 +145,4 @@ public class Storing extends AppCompatActivity {
         }
         return true;
     }
-
 }

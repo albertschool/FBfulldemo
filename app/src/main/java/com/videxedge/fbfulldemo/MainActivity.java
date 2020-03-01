@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     User userdb;
     Boolean stayConnect, registered, firstrun;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,18 +57,7 @@ public class MainActivity extends AppCompatActivity {
         stayConnect=false;
         registered=true;
 
-        SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-        firstrun=settings.getBoolean("firstRun",false);
-        Toast.makeText(this, ""+firstrun, Toast.LENGTH_SHORT).show();
-        if (firstrun) {
-            tVtitle.setText("Register");
-            eTname.setVisibility(View.VISIBLE);
-            eTphone.setVisibility(View.VISIBLE);
-            btn.setText("Register");
-            registered=false;
-            logoption();
-        }
-        else regoption();
+        regoption();
     }
 
     /**
@@ -143,9 +131,10 @@ public class MainActivity extends AppCompatActivity {
      * <p>
      */
     public void logorreg(View view) {
-        email=eTemail.getText().toString();
-        password=eTpass.getText().toString();
         if (registered) {
+            email=eTemail.getText().toString();
+            password=eTpass.getText().toString();
+
             final ProgressDialog pd=ProgressDialog.show(this,"Login","Connecting...",true);
             refAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -170,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             name=eTname.getText().toString();
             phone=eTphone.getText().toString();
+            email=eTemail.getText().toString();
+            password=eTpass.getText().toString();
 
             final ProgressDialog pd=ProgressDialog.show(this,"Register","Registering...",true);
             refAuth.createUserWithEmailAndPassword(email, password)
@@ -181,13 +172,12 @@ public class MainActivity extends AppCompatActivity {
                                 SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
                                 SharedPreferences.Editor editor=settings.edit();
                                 editor.putBoolean("stayConnect",cBstayconnect.isChecked());
-                                editor.putBoolean("firstRun",false);
                                 editor.commit();
                                 Log.d("MainActivity", "createUserWithEmail:success");
                                 FirebaseUser user = refAuth.getCurrentUser();
                                 uid = user.getUid();
                                 userdb=new User(name,email,phone,uid);
-                                refUsers.child(name).setValue(userdb);
+                                refUsers.child(uid).setValue(userdb);
                                 Toast.makeText(MainActivity.this, "Successful registration", Toast.LENGTH_LONG).show();
                                 Intent si = new Intent(MainActivity.this,Loginok.class);
                                 startActivity(si);
