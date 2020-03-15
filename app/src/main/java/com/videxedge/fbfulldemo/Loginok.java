@@ -47,7 +47,7 @@ public class Loginok extends AppCompatActivity {
                 .orderByChild("uid")
                 .equalTo(uid)
                 .limitToFirst(1);
-        query.addListenerForSingleValueEvent(ValueEventListener);
+        query.addListenerForSingleValueEvent(VEL);
         email = user.getEmail();
         tVemailview.setText(email);
         uid = user.getUid();
@@ -57,7 +57,7 @@ public class Loginok extends AppCompatActivity {
         cBconnectview.setChecked(isChecked);
     }
 
-    com.google.firebase.database.ValueEventListener ValueEventListener = new ValueEventListener() {
+    com.google.firebase.database.ValueEventListener VEL = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dS) {
             if (dS.exists()) {
