@@ -96,8 +96,7 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         }
         if (field!=0 && num!=0) {
             Query query = refUsers
-                    .orderByChild(fields[field - 1])
-                    .equalTo(fields[field - 1])
+                    .orderByChild(fields[field])
                     .limitToFirst(num);
             query.addListenerForSingleValueEvent(VEL);
         }
