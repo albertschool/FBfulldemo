@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class Filestore extends AppCompatActivity {
 
@@ -13,6 +14,13 @@ public class Filestore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filestore);
+    }
+
+
+    public void upload(View view) {
+    }
+
+    public void download(View view) {
     }
 
 
