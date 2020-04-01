@@ -97,7 +97,7 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         if (field!=0 && num!=0) {
             Query query = refUsers
                     .orderByChild(fields[field - 1])
-//                    .equalTo(fields[field - 1])
+                    .equalTo(fields[field - 1])
                     .limitToFirst(num);
             query.addListenerForSingleValueEvent(VEL);
         }
@@ -128,12 +128,16 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
             Intent si = new Intent(Dbact.this,Loginok.class);
             startActivity(si);
         }
-        if (id==R.id.menuDB) {
+        else if (id==R.id.menuDB) {
             Intent si = new Intent(Dbact.this,Dbact.class);
             startActivity(si);
         }
-        if (id==R.id.menuStore) {
+        else if (id==R.id.menuStoreimage) {
             Intent si = new Intent(Dbact.this,Storing.class);
+            startActivity(si);
+        }
+        else if (id==R.id.menuStorefile) {
+            Intent si = new Intent(Dbact.this,Filestore.class);
             startActivity(si);
         }
         return true;

@@ -134,12 +134,16 @@ public class Storing extends AppCompatActivity {
             Intent si = new Intent(Storing.this,Loginok.class);
             startActivity(si);
         }
-        if (id==R.id.menuDB) {
+        else if (id==R.id.menuDB) {
             Intent si = new Intent(Storing.this,Dbact.class);
             startActivity(si);
         }
-        if (id==R.id.menuStore) {
+        else if (id==R.id.menuStoreimage) {
             Intent si = new Intent(Storing.this,Storing.class);
+            startActivity(si);
+        }
+        else if (id==R.id.menuStorefile) {
+            Intent si = new Intent(Storing.this,Filestore.class);
             startActivity(si);
         }
         return true;

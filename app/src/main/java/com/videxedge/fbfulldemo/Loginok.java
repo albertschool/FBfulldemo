@@ -61,6 +61,7 @@ public class Loginok extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot dS) {
             if (dS.exists()) {
+                long count=dS.getChildrenCount();
                 for(DataSnapshot data : dS.getChildren()) {
                     User user = data.getValue(User.class);
                     tVnameview.setText(user.getName());
@@ -95,12 +96,16 @@ public class Loginok extends AppCompatActivity {
             Intent si = new Intent(Loginok.this,Loginok.class);
             startActivity(si);
         }
-        if (id==R.id.menuDB) {
+        else if (id==R.id.menuDB) {
             Intent si = new Intent(Loginok.this,Dbact.class);
             startActivity(si);
         }
-        if (id==R.id.menuStore) {
+        else if (id==R.id.menuStoreimage) {
             Intent si = new Intent(Loginok.this,Storing.class);
+            startActivity(si);
+        }
+        else if (id==R.id.menuStorefile) {
+            Intent si = new Intent(Loginok.this,Filestore.class);
             startActivity(si);
         }
         return true;

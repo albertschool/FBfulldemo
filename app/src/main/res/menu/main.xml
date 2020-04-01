@@ -12,8 +12,13 @@
         android:orderInCategory="200" />
 
     <item
-        android:id="@+id/menuStore"
-        android:title="Store"
+        android:id="@+id/menuStoreimage"
+        android:title="Image Store"
         android:orderInCategory="300" />
+
+    <item
+        android:id="@+id/menuStorefile"
+        android:title="File Store"
+        android:orderInCategory="400" />
 
 </menu>

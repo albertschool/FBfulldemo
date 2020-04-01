@@ -41,7 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="name" />
+            android:text="name:"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tVnameview"
@@ -58,7 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="e-mail" />
+            android:text="e-mail:"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tVemailview"
@@ -75,7 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Uid" />
+            android:text="Uid:"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tVuidview"
