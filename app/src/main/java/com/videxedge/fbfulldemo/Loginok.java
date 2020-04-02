@@ -61,7 +61,7 @@ public class Loginok extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot dS) {
             if (dS.exists()) {
-                long count=dS.getChildrenCount();
+//                long count=dS.getChildrenCount();
                 for(DataSnapshot data : dS.getChildren()) {
                     User user = data.getValue(User.class);
                     tVnameview.setText(user.getName());
