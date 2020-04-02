@@ -174,7 +174,6 @@ public class Filestore extends AppCompatActivity {
                     }
                 }
             });
-            deleteFile(fname);
         }
     }
 

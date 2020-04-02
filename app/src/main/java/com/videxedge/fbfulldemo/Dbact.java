@@ -55,13 +55,15 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         spnum.setOnItemSelectedListener(this);
 
         datalist = new ArrayList<>();
+        datalist.clear();
+
     }
 
     ValueEventListener VEL = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dS) {
-            datalist.clear();
             if (dS.exists()) {
+                datalist.clear();
                 for (DataSnapshot data : dS.getChildren()) {
                     User user = data.getValue(User.class);
                     switch (field) {
@@ -81,7 +83,6 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
                 }
             }
         }
-
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
         }
@@ -101,7 +102,6 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
             query.addListenerForSingleValueEvent(VEL);
         }
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
