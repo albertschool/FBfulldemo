@@ -54,8 +54,8 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         spnum.setAdapter(adpnum);
         spnum.setOnItemSelectedListener(this);
 
-        ArrayAdapter<String> adp=new ArrayAdapter<String>(this, support_simple_spinner_dropdown_item,datalist);
-        lv.setAdapter(adp);
+//        ArrayAdapter<String> adp=new ArrayAdapter<String>(this, support_simple_spinner_dropdown_item,datalist);
+//        lv.setAdapter(adp);
     }
 
     ValueEventListener VEL = new ValueEventListener() {
@@ -109,9 +109,9 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         if (field==0 || num==0) {
             Toast.makeText(this, "Please choose data to show", Toast.LENGTH_LONG).show();
         } else {
-//            ArrayAdapter<String> adp=new ArrayAdapter<String>(this, support_simple_spinner_dropdown_item,datalist);
-//            lv.setAdapter(adp);
-            adp.notifyDataSetChanged();
+            ArrayAdapter<String> adp=new ArrayAdapter<String>(this, support_simple_spinner_dropdown_item,datalist);
+            lv.setAdapter(adp);
+//            adp.notifyDataSetChanged();
         }
     }
 
