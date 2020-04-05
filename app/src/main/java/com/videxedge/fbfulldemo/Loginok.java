@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +24,13 @@ import static com.videxedge.fbfulldemo.FBref.refUsers;
 
 public class Loginok extends AppCompatActivity {
 
-    String name, email, uid;
     TextView tVnameview, tVemailview, tVuidview;
     CheckBox cBconnectview;
+
+    String name, email, uid;
+    Boolean newuser=false;
+    User user;
+    long count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +41,24 @@ public class Loginok extends AppCompatActivity {
         tVemailview=(TextView)findViewById(R.id.tVemailview);
         tVuidview=(TextView)findViewById(R.id.tVuidview);
         cBconnectview=(CheckBox)findViewById(R.id.cBconnectview);
+
+        Intent gi=getIntent();
+        newuser=gi.getBooleanExtra("newuser",false);
+        refUsers.addListenerForSingleValueEvent(VELUpdateSNum);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser user = refAuth.getCurrentUser();
-        uid = user.getUid();
+        FirebaseUser fbuser = refAuth.getCurrentUser();
+        uid = fbuser.getUid();
         Query query = refUsers
                 .orderByChild("uid")
-                .equalTo(uid)
-                .limitToFirst(1);
+                .equalTo(uid);
         query.addListenerForSingleValueEvent(VEL);
-        email = user.getEmail();
+        email = fbuser.getEmail();
         tVemailview.setText(email);
-        uid = user.getUid();
         tVuidview.setText(uid);
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
         Boolean isChecked=settings.getBoolean("stayConnect",false);
@@ -61,9 +69,9 @@ public class Loginok extends AppCompatActivity {
         @Override
         public void onDataChange(@NonNull DataSnapshot dS) {
             if (dS.exists()) {
-//                long count=dS.getChildrenCount();
+                long count=dS.getChildrenCount();
                 for(DataSnapshot data : dS.getChildren()) {
-                    User user = data.getValue(User.class);
+                    user = data.getValue(User.class);
                     tVnameview.setText(user.getName());
                 }
             }
@@ -73,8 +81,25 @@ public class Loginok extends AppCompatActivity {
         }
     };
 
+    com.google.firebase.database.ValueEventListener VELUpdateSNum = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dS) {
+            if (dS.exists()) {
+                count=dS.getChildrenCount();
+                if (newuser) {
+                    user.setSerialnum(count);
+                    refUsers.child(uid).setValue(user);
+                    Toast.makeText(Loginok.this, ""+count, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
+    };
+
     public void update(View view) {
-        FirebaseUser user = refAuth.getCurrentUser();
+        FirebaseUser fbuser = refAuth.getCurrentUser();
         if (!cBconnectview.isChecked()){
             refAuth.signOut();
         }

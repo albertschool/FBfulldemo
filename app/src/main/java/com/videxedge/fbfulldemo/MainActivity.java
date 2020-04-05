@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         Intent si = new Intent(MainActivity.this,Loginok.class);
         if (refAuth.getCurrentUser()!=null && isChecked) {
             stayConnect=true;
+            si.putExtra("newuser",false);
             startActivity(si);
         }
     }
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("MainActivity", "signinUserWithEmail:success");
                                 Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
                                 Intent si = new Intent(MainActivity.this,Loginok.class);
+                                si.putExtra("newuser",false);
                                 startActivity(si);
                             } else {
                                 Log.d("MainActivity", "signinUserWithEmail:fail");
@@ -176,10 +178,11 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("MainActivity", "createUserWithEmail:success");
                                 FirebaseUser user = refAuth.getCurrentUser();
                                 uid = user.getUid();
-                                userdb=new User(name,email,phone,uid);
+                                userdb=new User(name,email,phone,uid,(long)0,true);
                                 refUsers.child(uid).setValue(userdb);
                                 Toast.makeText(MainActivity.this, "Successful registration", Toast.LENGTH_LONG).show();
                                 Intent si = new Intent(MainActivity.this,Loginok.class);
+                                si.putExtra("newuser",true);
                                 startActivity(si);
                             } else {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException)
