@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                                 editor.putBoolean("stayConnect",cBstayconnect.isChecked());
                                 editor.commit();
                                 Log.d("MainActivity", "signinUserWithEmail:success");
-                                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                                 Intent si = new Intent(MainActivity.this,Loginok.class);
                                 si.putExtra("newuser",false);
                                 startActivity(si);
@@ -180,13 +180,13 @@ public class MainActivity extends AppCompatActivity {
                                 uid = user.getUid();
                                 userdb=new User(name,email,phone,uid,(long)0,true);
                                 refUsers.child(uid).setValue(userdb);
-                                Toast.makeText(MainActivity.this, "Successful registration", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
                                 Intent si = new Intent(MainActivity.this,Loginok.class);
                                 si.putExtra("newuser",true);
                                 startActivity(si);
                             } else {
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException)
-                                    Toast.makeText(MainActivity.this, "User with e-mail already exist!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "User with e-mail already exist!", Toast.LENGTH_SHORT).show();
                                 else {
                                     Log.w("MainActivity", "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(MainActivity.this, "User create failed.",Toast.LENGTH_LONG).show();

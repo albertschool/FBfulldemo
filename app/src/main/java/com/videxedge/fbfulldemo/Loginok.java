@@ -28,7 +28,7 @@ public class Loginok extends AppCompatActivity {
     CheckBox cBconnectview;
 
     String name, email, uid;
-    Boolean newuser=false;
+    Boolean newuser;
     User user;
     long count;
 
@@ -45,7 +45,6 @@ public class Loginok extends AppCompatActivity {
         Intent gi=getIntent();
         newuser=gi.getBooleanExtra("newuser",false);
         refUsers.addListenerForSingleValueEvent(VELUpdateSNum);
-
     }
 
     @Override
@@ -89,7 +88,6 @@ public class Loginok extends AppCompatActivity {
                 if (newuser) {
                     user.setSerialnum(count);
                     refUsers.child(uid).setValue(user);
-                    Toast.makeText(Loginok.this, ""+count, Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -99,7 +97,6 @@ public class Loginok extends AppCompatActivity {
     };
 
     public void update(View view) {
-        FirebaseUser fbuser = refAuth.getCurrentUser();
         if (!cBconnectview.isChecked()){
             refAuth.signOut();
         }
@@ -118,8 +115,8 @@ public class Loginok extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item) {
         int id=item.getItemId();
         if (id==R.id.menuLogin) {
-            Intent si = new Intent(Loginok.this,Loginok.class);
-            startActivity(si);
+//            Intent si = new Intent(Loginok.this,Loginok.class);
+//            startActivity(si);
         }
         else if (id==R.id.menuDB) {
             Intent si = new Intent(Loginok.this,Dbact.class);
