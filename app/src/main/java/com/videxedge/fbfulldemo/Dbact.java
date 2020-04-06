@@ -44,7 +44,7 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
         spnum=(Spinner)findViewById(R.id.spnum);
         lv=(ListView)findViewById(R.id.lv);
 
-        fields=new String[]{"Choose field:", "name", "email", "phone", "uid"};
+        fields=new String[]{"Choose field:", "name", "email", "phone", "uid", "serialnum"};
         ArrayAdapter<String> adpfield=new ArrayAdapter<String>(this, support_simple_spinner_dropdown_item,fields);
         spfield.setAdapter(adpfield);
         spfield.setOnItemSelectedListener(this);
@@ -70,13 +70,16 @@ public class Dbact extends AppCompatActivity implements AdapterView.OnItemSelect
                             datalist.add(user.getName());
                             break;
                         case 2:
-                            datalist.add(user.getEmail());
+                            datalist.add(user.getName()+" , "+user.getEmail());
                             break;
                         case 3:
-                            datalist.add(user.getPhone());
+                            datalist.add(user.getName()+" , "+user.getPhone());
                             break;
                         case 4:
-                            datalist.add(user.getUid());
+                            datalist.add(user.getName()+" , "+user.getUid());
+                            break;
+                        case 5:
+                            datalist.add(user.getName()+" , "+String.valueOf(user.getSerialnum()));
                             break;
                     }
                 }
